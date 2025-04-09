@@ -17,6 +17,9 @@ Public Class Form1
             MsgBox("Enter your location please ...", vbExclamation)
             Return
         End If
+        TextBox1.Enabled = False
+        Button1.Enabled = False
+        Me.UseWaitCursor = True
 
         _worker.RunWorkerAsync()
     End Sub
@@ -49,7 +52,14 @@ Public Class Form1
     End Sub
 
     Private Sub _worker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles _worker.RunWorkerCompleted
-        'MsgBox("Labas ka nalang daw beh!", vbInformation)
+        TextBox1.Enabled = True
+        Button1.Enabled = True
+        Me.UseWaitCursor = False
+
         frmDialog.ShowDialog(Me)
+
+        lblStatus.Text = ""
+        ProgressBar1.Value = 0
+        ProgressBar1.Visible = False
     End Sub
 End Class
